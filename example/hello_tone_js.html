@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<head>
+    <script src="packages/tone_js/js/Tone.min.js"></script>
+    <script>
+        //create one of Tone's built-in synthesizers and connect it to the master output
+        var synth = new Tone.SimpleSynth().toMaster();
+
+        //play a middle c for the duration of an 8th note
+        synth.triggerAttackRelease("C4", "8n");
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+name: tone_js
+sdk: ">=1.15.0"
+dependencies:
+  js: any
+  browser: any
+dev_dependencies:
+  test: any
+  dev_test: any
