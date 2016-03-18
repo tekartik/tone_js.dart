@@ -5,7 +5,8 @@ import 'package:js/js.dart';
 
 @JS()
 class Instrument {
-  external triggerAttackRelease(String note, String duration);
+  // note is String (C4) or num (440)
+  external triggerAttackRelease(var note, String duration);
 }
 
 @JS()
