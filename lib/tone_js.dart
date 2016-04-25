@@ -27,7 +27,7 @@ class Tone {
   external get([param]);
   external connect(p1, [p2, p3]);
   external disconnect([p1]);
-  external void dispose();
+  external dispose();
 }
 
 @JS()
@@ -47,6 +47,32 @@ class Volume extends Tone {
       [dynamic /* VolumeOptions or decibel value */ optionsOrValue]);
 
   external Param get volume;
+  external rampTo(num value, num delay);
+}
+
+@JS()
+@anonymous
+class OscillatorOptions {
+  external factory OscillatorOptions(
+      {int volume, num frequency, num detune, String type});
+  external Param get volume;
+  external Param get frequency;
+  external Param get detune;
+  external String get type;
+}
+
+@JS()
+class Oscillator extends Tone with OscillatorOptions {
+  external Oscillator(
+      [dynamic /*OscillatorOptions | num(frequency)*/ options,
+      dynamic /* type */ param2]);
+  external start();
+  external toMaster();
+}
+
+@JS()
+class Master extends Tone {
+  external static Volume get volume;
 }
 
 @JS()

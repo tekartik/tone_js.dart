@@ -7,8 +7,10 @@ void main() {
   group('loader', () {
     test('load', () async {
       expect(js.context['Tone'], isNull);
+      expect(isToneJsLoaded, isFalse);
       await (loadToneJs());
       expect(js.context['Tone'], isNotNull);
+      expect(isToneJsLoaded, isTrue);
     });
   });
 }

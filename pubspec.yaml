@@ -3,8 +3,8 @@ sdk: ">=1.15.0"
 dependencies:
   js: any
   browser: any
-  tekartik_utils:
-    git: git://github.com/alextekartik/tekartik_utils.dart
+  tekartik_test_menu:
+    git: git://github.com/tekartik/tekartik_test_menu.dart
 dev_dependencies:
   test: any
   dev_test: any

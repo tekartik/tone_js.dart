@@ -1,7 +1,6 @@
 import 'package:tone_js/tone_js_loader.dart';
 import 'package:tone_js/tone_js.dart';
 import 'package:tone_js/src/import_lite.dart';
-import 'package:dev_test/test.dart';
 
 export 'package:tone_js/tone_js.dart';
 export 'package:dev_test/test.dart';
