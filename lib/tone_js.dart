@@ -62,12 +62,18 @@ class OscillatorOptions {
 }
 
 @JS()
-class Oscillator extends Tone with OscillatorOptions {
+class Oscillator extends Tone {
   external Oscillator(
       [dynamic /*OscillatorOptions | num(frequency)*/ options,
       dynamic /* type */ param2]);
   external start();
   external toMaster();
+
+  // OscillatorOptions
+  external Param get volume;
+  external Param get frequency;
+  external Param get detune;
+  external String get type;
 }
 
 @JS()
