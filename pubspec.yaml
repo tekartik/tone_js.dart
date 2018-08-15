@@ -4,7 +4,9 @@ dependencies:
   js: any
   browser: any
   tekartik_test_menu:
-    git: git://github.com/tekartik/tekartik_test_menu.dart
+    git:
+      url: git://github.com/tekartik/tekartik_test_menu.dart
+      ref: dart1
 dev_dependencies:
   test: any
   dev_test: any

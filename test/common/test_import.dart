@@ -1,3 +1,5 @@
+@JS()
+
 import 'package:tone_js/tone_js_loader.dart';
 import 'package:tone_js/tone_js.dart';
 import 'package:tone_js/src/import_lite.dart';

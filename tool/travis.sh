@@ -3,8 +3,6 @@
 # Fast fail the script on failures.
 set -e
 
-dartanalyzer --fatal-warnings \
-  lib/tone_js.dart \
-  lib/tone_js_loader.dart
+dartanalyzer --fatal-warnings example lib test
 
 pub run test -p vm,firefox
