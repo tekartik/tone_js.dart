@@ -12,6 +12,6 @@ Future loadToneJs() async {
   }
 
   // load mdl js
-  await loadJavascriptScript("packages/tone_js/js/Tone.min.js");
+  await loadJavascriptScript("packages/tekartik_tone_js/js/Tone.min.js");
   return null;
 }

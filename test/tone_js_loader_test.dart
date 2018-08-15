@@ -1,5 +1,5 @@
 @TestOn("browser")
-import 'package:tone_js/tone_js_loader.dart';
+import 'package:tekartik_tone_js/tone_js_loader.dart';
 import 'package:dev_test/test.dart';
 import 'dart:js' as js;
 

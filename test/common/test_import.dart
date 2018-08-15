@@ -1,8 +1,11 @@
-import 'package:tone_js/tone_js_loader.dart';
-import 'package:tone_js/tone_js.dart';
-import 'package:tone_js/src/import_lite.dart';
+@JS()
+library tekartik_tone_js.test_import;
 
-export 'package:tone_js/tone_js.dart';
+import 'package:tekartik_tone_js/tone_js_loader.dart';
+import 'package:tekartik_tone_js/tone_js.dart';
+import 'package:tekartik_tone_js/src/import_lite.dart';
+
+export 'package:tekartik_tone_js/tone_js.dart';
 export 'package:dev_test/test.dart';
 
 import 'package:js/js.dart';
