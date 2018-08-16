@@ -31,7 +31,7 @@ main() {
         osc.dispose();
       });
     });
-  });
+  },skip: true);
 }
 /*
 define(["helper/Basic", "Tone/source/Oscillator", "helper/Offline", "helper/SourceTests",

@@ -16,5 +16,5 @@ main() {
       instr.set(new InstrumentOptions(volume: 2));
       expect(instr.get().volume, closeTo(2, 0.1));
     });
-  });
+  }, skip: true);
 }

@@ -11,5 +11,5 @@ main() {
     test('version', () {
       expect(version, "r6");
     });
-  });
+  }, skip: true);
 }

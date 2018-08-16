@@ -12,5 +12,5 @@ void main() {
       expect(js.context['Tone'], isNotNull);
       expect(isToneJsLoaded, isTrue);
     });
-  });
+  }, skip: true);
 }
