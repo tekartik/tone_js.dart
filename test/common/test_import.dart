@@ -23,7 +23,7 @@ class Test {
 }
 
 Test createTest() {
-  Test test = new Test(input: context.createGain());
+  Test test = Test(input: context.createGain());
   return test;
 }
 

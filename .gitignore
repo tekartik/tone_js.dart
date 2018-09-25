@@ -32,3 +32,7 @@ tmp/
 .idea/
 *.iml
 .vscode/
+
+# using node to install Tone.js - npm install node
+package-lock.json
+node_modules/

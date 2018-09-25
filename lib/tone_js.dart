@@ -28,6 +28,7 @@ class Tone {
   external connect(p1, [p2, p3]);
   external disconnect([p1]);
   external dispose();
+  external toMaster();
 }
 
 @JS()
@@ -67,13 +68,25 @@ class Oscillator extends Tone {
       [dynamic /*OscillatorOptions | num(frequency)*/ options,
       dynamic /* type */ param2]);
   external start();
-  external toMaster();
-
   // OscillatorOptions
   external Param get volume;
   external Param get frequency;
   external Param get detune;
   external String get type;
+}
+
+@JS()
+@anonymous
+class SamplerOptions {
+  external factory SamplerOptions({void Function() onload, String baseUrl});
+  external void Function() get onload;
+  external String get baseUrl;
+}
+
+@JS()
+class Sampler extends Instrument {
+  external Sampler(dynamic samples, SamplerOptions options);
+  external void triggerAttack(String note, [dynamic time]);
 }
 
 @JS()

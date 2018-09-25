@@ -10,7 +10,7 @@ main() {
     setUpAll(toneJsSetup);
 
     test("handles input and output connections", () {
-      var vol = new Volume();
+      var vol = Volume();
       Test test = createTest();
       connectTest(test, vol);
       vol.connect(test);
@@ -18,21 +18,21 @@ main() {
     });
 
     test("can be constructed with volume value", () {
-      var vol = new Volume(-12);
+      var vol = Volume(-12);
       expect(vol.volume.value, closeTo(-12, 0.1));
       vol.dispose();
     });
 
     test("can be constructed with an options object", () {
-      var vol = new Volume(new VolumeOptions(volume: 2));
+      var vol = Volume(VolumeOptions(volume: 2));
 
       expect(vol.volume.value, closeTo(2, 0.1));
       vol.dispose();
     });
 
     test("can set/get with an object", () {
-      var vol = new Volume();
-      vol.set(new VolumeOptions(volume: -10));
+      var vol = Volume();
+      vol.set(VolumeOptions(volume: -10));
       expect(vol.get().volume, closeTo(-10, 0.1));
       vol.dispose();
     });

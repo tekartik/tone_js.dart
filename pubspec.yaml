@@ -1,17 +1,18 @@
 name: tekartik_tone_js
-version: 0.1.0
+version: 0.1.1
 description: tone js wrapper
 environment:
   sdk: '>=2.0.0-dev.63 <3.0.0'
 dependencies:
   js: any
+  synchronized:
+dev_dependencies:
   tekartik_test_menu_browser:
     git:
       url: git://github.com/tekartik/tekartik_test_menu.dart
       ref: dart2
       path: test_menu_browser
     version: '>=0.1.0'
-dev_dependencies:
   test: '>=1.2.0'
   dev_test: '>=0.13.0-dev.1'
   build_runner: '>=0.10.1'
