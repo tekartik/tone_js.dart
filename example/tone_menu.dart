@@ -3,8 +3,14 @@ import 'package:tekartik_tone_js/tone.dart';
 
 mainToneMenu() async {
   menu('tone', () {
+    item('initToneContext', () async {
+      var toneContext = await initToneContext();
+      write(toneContext.version);
+    });
+
     item('Sampler', () async {
-      var ctx = await initToneContext();
+      var ctx = await initToneContext(debug: true);
+      write('version: ${ctx.version}');
       var sampler = (await ctx.initSampler({'C4': 'audio/C4[.mp3|.ogg]'})).toMaster();
 
       sampler.triggerAttack('C4');

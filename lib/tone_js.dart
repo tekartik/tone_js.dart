@@ -1,5 +1,5 @@
-@JS('Tone')
-library tone_js;
+@JS()
+library tekartik_tone_js;
 
 import 'package:js/js.dart';
 
@@ -21,8 +21,12 @@ class InstrumentOptions {
   external int get volume;
 }
 
-@JS('Tone')
+@JS()
+@anonymous
 class Tone {
+  external String get version;
+  // Sampler ctor
+  external Function get Sampler;
   external set(param, [value, rampTime]);
   external get([param]);
   external connect(p1, [p2, p3]);
@@ -78,15 +82,18 @@ class Oscillator extends Tone {
 @JS()
 @anonymous
 class SamplerOptions {
-  external factory SamplerOptions({void Function() onload, String baseUrl});
-  external void Function() get onload;
+  external factory SamplerOptions({Function() onload, String baseUrl});
+  external Function() get onload;
   external String get baseUrl;
 }
 
 @JS()
+@anonymous
 class Sampler extends Instrument {
-  external Sampler(dynamic samples, SamplerOptions options);
+  // external Sampler(dynamic samples, SamplerOptions options);
   external void triggerAttack(String note, [dynamic time]);
+  external Sampler toMaster();
+  external void on(String event, Function callback);
 }
 
 @JS()
@@ -95,8 +102,9 @@ class Master extends Tone {
 }
 
 @JS()
+@anonymous
 class Instrument extends Tone {
-  external Instrument([dynamic /*InstrumentOptions */ options]);
+  // external Instrument([dynamic /*InstrumentOptions */ options]);
   // note is String (C4) or num (440)
   external triggerAttackRelease(var note, String duration);
   external Param get volume;
@@ -113,3 +121,9 @@ external String get version;
 
 @JS()
 external AudioContext get context;
+
+// To check if available globally
+@JS('Tone')
+external Tone get GlobalTone;
+
+external dynamic require(List<String> id, Function callback);

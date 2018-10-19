@@ -1,6 +1,8 @@
+
 import 'package:tekartik_tone_js/tone_js.dart';
 import 'package:tekartik_test_menu_browser/test_menu_mdl_browser.dart';
 import 'package:js/js_util.dart' as js;
+import 'package:tekartik_tone_js/tone_js_loader.dart';
 
 import 'tone_menu.dart';
 
@@ -10,6 +12,12 @@ main() async {
   mainToneMenu();
 
   menu("main", () {
+    item('load', () async {
+      await loadToneJs();
+    });
+    item('load debug', () async {
+      await loadToneJs(debug: true);
+    });
     item('Hello Tone', () {
       // create one of Tone's built-in synthesizers and connect it to the master output
       var synth = SimpleSynth().toMaster();
@@ -25,6 +33,7 @@ main() async {
       osc.volume.rampTo(double.negativeInfinity, 1.05);
       //}
     });
+    /*
     item('Sampler', () async {
       var completer = Completer();
       Object mapToJSObj(Map<dynamic, dynamic> a) {
@@ -49,5 +58,6 @@ main() async {
       sampler.triggerAttack('C3', "+1.0");
       sampler.triggerAttack('C5', "+2.0");
     });
+    */
   });
 }

@@ -1,3 +1,5 @@
+library tekartik_tone;
+
 import 'dart:async';
 import 'package:js/js.dart';
 import 'package:tekartik_browser_utils/browser_utils_import.dart';
@@ -5,9 +7,13 @@ import 'package:tekartik_tone_js/tone_js_loader.dart' as tone_js;
 import 'package:tekartik_tone_js/tone_js.dart' as tone_js;
 import 'package:synchronized/synchronized.dart';
 import 'package:js/js_util.dart' as js;
+import 'dart:js' as js;
 
 class ToneContext {
-  ToneContext._();
+  final tone_js.Tone nativeTone;
+  ToneContext._(this.nativeTone);
+
+  String get version => nativeTone.version;
 
   Future<Sampler> initSampler(Map<String, String> samples) async {
     var completer = Completer();
@@ -21,22 +27,53 @@ class ToneContext {
       return object;
     }
 
+    devPrint('constructing Sample');
+    tone_js.Sampler nativeSampler = js.callConstructor(nativeTone.Sampler, [mapToJSObj(samples),
+
+        /*
+        // 2n argument is onload
+        allowInterop(([_]) {
+      devPrint('Sampler loaded $_');
+      completer.complete();
+    })
+
+*/
+
+        tone_js.SamplerOptions(onload: allowInterop(([_buffers]) {
+          devPrint('Sampler loaded $_buffers');
+          completer.complete();
+        }))
+        ]);
+    devPrint('nativeSampler $nativeSampler');
+    /*
     var sampler = tone_js.Sampler(mapToJSObj(samples),
         tone_js.SamplerOptions(onload: allowInterop(() {
       completer.complete();
     })));
+    */
+    // await completer.future;
     await completer.future;
-    return Sampler(sampler);
+    var sampler = Sampler(nativeSampler);
+    /*
+    sampler.onLoad(() {
+      devPrint('loaded');
+      completer.complete();
+    });
+    */
+    return sampler;
+
   }
 }
 
 class Sampler {
   final tone_js.Sampler jsObject;
 
-  Sampler(this.jsObject);
+  Sampler(this.jsObject) {
+    devPrint('Sample $jsObject');
+  }
 
   Sampler toMaster() {
-    return Sampler(jsObject.toMaster() as tone_js.Sampler);
+    return Sampler(jsObject.toMaster());
   }
 
   void triggerAttack(String note, {double delay}) {
@@ -50,17 +87,60 @@ class Sampler {
       jsObject.triggerAttack(note, time);
     }
   }
+
+  void onLoad(void Function() callback) {
+    jsObject.on('load', allowInterop(callback));
+  }
 }
 
 ToneContext _toneContext;
 final _initLock = Lock();
 
-Future<ToneContext> initToneContext() async {
+Future<ToneContext> initToneContext({String path, bool debug}) async {
+  path = tone_js.toneJsPath(path: path, debug: debug);
   if (_toneContext == null) {
     await _initLock.synchronized(() async {
       if (_toneContext == null) {
+        //devPrint(js.context['require']);
+        //devPrint(js.context['define']);
+        // Tone defined globally?
+
+        _useGlobal() {
+          _toneContext = ToneContext._(tone_js.GlobalTone);
+        }
+        if (js.context['Tone'] != null) {
+          devPrint('Global tone object');
+          _useGlobal();
+        } else if (js.context['require'] != null) {
+          _useRequire() async {
+            var completer = Completer();
+            tone_js.require([path], allowInterop((tone_js.Tone native) {
+              _toneContext = ToneContext._(native);
+              completer.complete();
+            }));
+
+            await completer.future;
+          }
+          devPrint('Using require');
+          try {
+            await _useRequire();
+          } catch (_) {
+            devPrint('Loading js');
+            await tone_js.loadToneJs(path: path);
+            await _useRequire();
+          }
+        } else {
+          devPrint('Loading global js');
+          await tone_js.loadToneJs(path: path);
+          _useGlobal();
+        }
+        devPrint(_toneContext.nativeTone.version);
+
+        /*
         await tone_js.loadToneJs();
+        await Future.delayed(Duration(milliseconds: 5500));
         _toneContext = ToneContext._();
+        */
       }
     });
   }

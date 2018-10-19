@@ -12,6 +12,11 @@ dependencies:
       ref: dart2
     version: '>=0.6.4'
 dev_dependencies:
+  tekartik_build_utils:
+    git:
+      url: git://github.com/tekartik/build_utils.dart
+      ref: dart2
+    version: '>=0.5.7'
   tekartik_test_menu_browser:
     git:
       url: git://github.com/tekartik/test_menu.dart
