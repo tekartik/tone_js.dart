@@ -1,12 +1,13 @@
 @JS()
 library tekartik_tone_js.test_import;
 
+import 'package:tekartik_tone_js/tone.dart';
 import 'package:tekartik_tone_js/tone_js_loader.dart';
 import 'package:tekartik_tone_js/tone_js.dart';
 import 'package:tekartik_tone_js/src/import_lite.dart';
 
 export 'package:tekartik_tone_js/tone_js.dart';
-export 'package:dev_test/test.dart';
+// export 'package:dev_test/test.dart';
 
 import 'package:js/js.dart';
 
@@ -22,8 +23,8 @@ class Test {
   external set input(GainNode node);
 }
 
-Test createTest() {
-  Test test = Test(input: context.createGain());
+Future<Test> createTest() async {
+  Test test = Test(input: (await initToneContext()).context.createGain());
   return test;
 }
 

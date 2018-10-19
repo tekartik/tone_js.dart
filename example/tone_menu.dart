@@ -11,7 +11,8 @@ mainToneMenu() async {
     item('Sampler', () async {
       var ctx = await initToneContext(debug: true);
       write('version: ${ctx.version}');
-      var sampler = (await ctx.initSampler({'C4': 'audio/C4[.mp3|.ogg]'})).toMaster();
+      var sampler =
+          (await ctx.createSampler({'C4': 'audio/C4[.mp3|.ogg]'})).toMaster();
 
       sampler.triggerAttack('C4');
       sampler.triggerAttack('Bb3', delay: 1.0);

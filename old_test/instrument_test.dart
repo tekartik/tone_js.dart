@@ -1,5 +1,9 @@
 @TestOn("browser")
-import '../common/test_import.dart';
+library tekartik_tone_js.test.instrument_test;
+
+import 'package:test/test.dart';
+
+import 'common/test_import.dart';
 
 main() {
   group('instrument/instrument', () {

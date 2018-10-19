@@ -1,14 +1,15 @@
-/*define(["Tone/component/Volume", "helper/Basic", "helper/Meter", "Test",
-"Tone/signal/Signal", "helper/PassAudio", "helper/PassAudioStereo"],
-function (Volume, Basic, Meter, Test, Signal, PassAudio, PassAudioStereo) {
-*/
 @TestOn("browser")
-import '../common/test_import.dart';
+library tekartik_tone_js.test.oscillator_test;
+
+import 'package:test/test.dart';
+
+import 'common/test_import.dart';
 
 main() {
   group('source/oscillator', () {
     setUpAll(toneJsSetup);
 
+    /*
     group('get/set', () {
       test("can be set with an options object", () {
         var osc = Oscillator();
@@ -31,6 +32,7 @@ main() {
         osc.dispose();
       });
     });
+    */
   }, skip: true);
 }
 /*

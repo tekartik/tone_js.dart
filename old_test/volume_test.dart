@@ -3,15 +3,20 @@
 function (Volume, Basic, Meter, Test, Signal, PassAudio, PassAudioStereo) {
 */
 @TestOn("browser")
-import '../common/test_import.dart';
+library tekartik_tone_js.test.volume_test;
+
+import 'package:test/test.dart';
+
+import 'common/test_import.dart';
 
 main() {
   group('component/volume', () {
     setUpAll(toneJsSetup);
 
-    test("handles input and output connections", () {
+    /*
+    test("handles input and output connections", () async {
       var vol = Volume();
-      Test test = createTest();
+      Test test = await createTest();
       connectTest(test, vol);
       vol.connect(test);
       vol.dispose();
@@ -36,5 +41,6 @@ main() {
       expect(vol.get().volume, closeTo(-10, 0.1));
       vol.dispose();
     });
+    */
   }, skip: true);
 }

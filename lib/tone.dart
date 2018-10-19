@@ -10,12 +10,14 @@ import 'package:js/js_util.dart' as js;
 import 'dart:js' as js;
 
 class ToneContext {
-  final tone_js.Tone nativeTone;
-  ToneContext._(this.nativeTone);
+  final tone_js.Tone nativeInstance;
+  ToneContext._(this.nativeInstance);
 
-  String get version => nativeTone.version;
+  String get version => nativeInstance.version;
 
-  Future<Sampler> initSampler(Map<String, String> samples) async {
+  tone_js.AudioContext get context => nativeInstance.context;
+
+  Future<Sampler> createSampler(Map<String, String> samples) async {
     var completer = Completer();
     Object mapToJSObj(Map<String, String> a) {
       var object = js.newObject();
@@ -27,10 +29,11 @@ class ToneContext {
       return object;
     }
 
-    devPrint('constructing Sample');
-    tone_js.Sampler nativeSampler = js.callConstructor(nativeTone.Sampler, [mapToJSObj(samples),
+    // devPrint('constructing Sample');
+    tone_js.Sampler nativeSampler = js.callConstructor(nativeInstance.Sampler, [
+      mapToJSObj(samples),
 
-        /*
+      /*
         // 2n argument is onload
         allowInterop(([_]) {
       devPrint('Sampler loaded $_');
@@ -39,12 +42,12 @@ class ToneContext {
 
 */
 
-        tone_js.SamplerOptions(onload: allowInterop(([_buffers]) {
-          devPrint('Sampler loaded $_buffers');
-          completer.complete();
-        }))
-        ]);
-    devPrint('nativeSampler $nativeSampler');
+      tone_js.SamplerOptions(onload: allowInterop(([_buffers]) {
+        // devPrint('Sampler loaded $_buffers');
+        completer.complete();
+      }))
+    ]);
+    // devPrint('nativeSampler $nativeSampler');
     /*
     var sampler = tone_js.Sampler(mapToJSObj(samples),
         tone_js.SamplerOptions(onload: allowInterop(() {
@@ -61,19 +64,20 @@ class ToneContext {
     });
     */
     return sampler;
-
   }
 }
 
-class Sampler {
-  final tone_js.Sampler jsObject;
+class Tone {}
 
-  Sampler(this.jsObject) {
-    devPrint('Sample $jsObject');
+class Sampler extends Tone {
+  final tone_js.Sampler nativeInstance;
+
+  Sampler(this.nativeInstance) {
+    // devPrint('Sample $nativeInstance');
   }
 
   Sampler toMaster() {
-    return Sampler(jsObject.toMaster());
+    return Sampler(nativeInstance.toMaster());
   }
 
   void triggerAttack(String note, {double delay}) {
@@ -82,18 +86,56 @@ class Sampler {
       time = '+${delay}';
     }
     if (time == null) {
-      jsObject.triggerAttack(note);
+      nativeInstance.triggerAttack(note);
     } else {
-      jsObject.triggerAttack(note, time);
+      nativeInstance.triggerAttack(note, time);
     }
   }
 
   void onLoad(void Function() callback) {
-    jsObject.on('load', allowInterop(callback));
+    nativeInstance.on('load', allowInterop(callback));
+  }
+}
+
+class Instrument extends Tone {
+  final tone_js.Instrument nativeInstance;
+
+  Instrument(this.nativeInstance);
+
+  void triggerAttack(String note, {double delay}) {
+    dynamic time;
+    if (delay != null) {
+      time = '+${delay}';
+    }
+    if (time == null) {
+      nativeInstance.triggerAttack(note);
+    } else {
+      nativeInstance.triggerAttack(note, time);
+    }
+  }
+
+  void triggerAttackRelease(var note, String duration) {
+    nativeInstance.triggerAttackRelease(note, duration);
+  }
+}
+
+class Synth extends Instrument {
+  tone_js.Synth get nativeSynth => nativeInstance as tone_js.Synth;
+
+  Synth.fromNativeInstance(tone_js.Synth nativeInstance)
+      : super(nativeInstance);
+
+  Synth()
+      : super(js.callConstructor(_toneContext.nativeInstance.Synth, [])
+            as tone_js.Synth);
+
+  Synth toMaster() {
+    return Synth.fromNativeInstance(nativeSynth.toMaster());
   }
 }
 
 ToneContext _toneContext;
+ToneContext get toneContext => _toneContext;
 final _initLock = Lock();
 
 Future<ToneContext> initToneContext({String path, bool debug}) async {
@@ -108,8 +150,9 @@ Future<ToneContext> initToneContext({String path, bool debug}) async {
         _useGlobal() {
           _toneContext = ToneContext._(tone_js.GlobalTone);
         }
+
         if (js.context['Tone'] != null) {
-          devPrint('Global tone object');
+          // devPrint('Global tone object');
           _useGlobal();
         } else if (js.context['require'] != null) {
           _useRequire() async {
@@ -121,20 +164,23 @@ Future<ToneContext> initToneContext({String path, bool debug}) async {
 
             await completer.future;
           }
-          devPrint('Using require');
+
+          // devPrint('Using require');
           try {
             await _useRequire();
           } catch (_) {
+            /*
             devPrint('Loading js');
             await tone_js.loadToneJs(path: path);
             await _useRequire();
+            */
           }
         } else {
-          devPrint('Loading global js');
+          // devPrint('Loading global js');
           await tone_js.loadToneJs(path: path);
           _useGlobal();
         }
-        devPrint(_toneContext.nativeTone.version);
+        // devPrint(_toneContext.nativeInstance.version);
 
         /*
         await tone_js.loadToneJs();

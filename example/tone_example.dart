@@ -1,7 +1,6 @@
+import 'package:tekartik_tone_js/tone.dart';
 
-import 'package:tekartik_tone_js/tone_js.dart';
 import 'package:tekartik_test_menu_browser/test_menu_mdl_browser.dart';
-import 'package:js/js_util.dart' as js;
 import 'package:tekartik_tone_js/tone_js_loader.dart';
 
 import 'tone_menu.dart';
@@ -18,13 +17,21 @@ main() async {
     item('load debug', () async {
       await loadToneJs(debug: true);
     });
-    item('Hello Tone', () {
+    item('initToneContext', () async {
+      await initToneContext();
+    });
+    item('initToneContext debug', () async {
+      await initToneContext(debug: true);
+    });
+    item('SimpleSynth', () async {
+      await initToneContext();
       // create one of Tone's built-in synthesizers and connect it to the master output
-      var synth = SimpleSynth().toMaster();
+      var synth = Synth().toMaster();
 
       // play a middle c for the duration of an 8th note
       synth.triggerAttackRelease("C4", "8n");
     });
+    /*
     item('Oscillator', () {
       var osc =
           Oscillator(OscillatorOptions(frequency: 440, volume: -10)).toMaster();
@@ -33,6 +40,7 @@ main() async {
       osc.volume.rampTo(double.negativeInfinity, 1.05);
       //}
     });
+    */
     /*
     item('Sampler', () async {
       var completer = Completer();
