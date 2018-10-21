@@ -135,7 +135,14 @@ class Synth extends Instrument {
 }
 
 ToneContext _toneContext;
-ToneContext get toneContext => _toneContext;
+ToneContext get toneContext =>
+    _toneContext ??
+    () {
+      window.console.warn(
+          'toneContext not initialized yet, please call initToneContext first');
+      return null;
+    }();
+
 final _initLock = Lock();
 
 Future<ToneContext> initToneContext({String path, bool debug}) async {
