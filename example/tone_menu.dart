@@ -17,6 +17,7 @@ mainToneMenu() async {
       sampler.triggerAttack('C4');
       sampler.triggerAttack('Bb3', delay: 1.0);
       sampler.triggerAttack('C#3', delay: 2.0);
+      sampler.triggerAttackRelease('D3', .5, delay: 3.0);
     });
   });
 }

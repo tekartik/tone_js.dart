@@ -80,7 +80,7 @@ class Sampler extends Tone {
     return Sampler(nativeInstance.toMaster());
   }
 
-  void triggerAttack(String note, {double delay}) {
+  void triggerAttack(String note, {dynamic delay}) {
     dynamic time;
     if (delay != null) {
       time = '+${delay}';
@@ -89,6 +89,18 @@ class Sampler extends Tone {
       nativeInstance.triggerAttack(note);
     } else {
       nativeInstance.triggerAttack(note, time);
+    }
+  }
+
+  void triggerAttackRelease(String note, dynamic duration, {dynamic delay}) {
+    String time;
+    if (delay != null) {
+      time = '+${delay}';
+    }
+    if (time == null) {
+      nativeInstance.triggerAttackRelease(note, duration);
+    } else {
+      nativeInstance.triggerAttackRelease(note, duration, time);
     }
   }
 
@@ -102,7 +114,7 @@ class Instrument extends Tone {
 
   Instrument(this.nativeInstance);
 
-  void triggerAttack(String note, {double delay}) {
+  void triggerAttack(String note, {dynamic delay}) {
     String time;
     if (delay != null) {
       time = '+${delay}';
@@ -114,7 +126,7 @@ class Instrument extends Tone {
     }
   }
 
-  void triggerAttackRelease(String note, String duration, {double delay}) {
+  void triggerAttackRelease(String note, dynamic duration, {dynamic delay}) {
     String time;
     if (delay != null) {
       time = '+${delay}';
