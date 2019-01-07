@@ -120,7 +120,8 @@ class Instrument extends Tone {
   // external Instrument([dynamic /*InstrumentOptions */ options]);
   // note is String (C4) or num (440)
   external void triggerAttack(String note, [dynamic time]);
-  external void triggerAttackRelease(var note, String duration);
+  external void triggerAttackRelease(String note, dynamic duration,
+      [dynamic time]);
   external Param get volume;
 }
 

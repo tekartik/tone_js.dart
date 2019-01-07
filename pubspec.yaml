@@ -1,5 +1,5 @@
 name: tekartik_tone_js
-version: 0.3.0
+version: 0.3.1
 description: tone js wrapper
 environment:
   sdk: '>=2.0.0-dev.63 <3.0.0'

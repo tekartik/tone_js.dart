@@ -103,7 +103,7 @@ class Instrument extends Tone {
   Instrument(this.nativeInstance);
 
   void triggerAttack(String note, {double delay}) {
-    dynamic time;
+    String time;
     if (delay != null) {
       time = '+${delay}';
     }
@@ -114,8 +114,16 @@ class Instrument extends Tone {
     }
   }
 
-  void triggerAttackRelease(var note, String duration) {
-    nativeInstance.triggerAttackRelease(note, duration);
+  void triggerAttackRelease(String note, String duration, {double delay}) {
+    String time;
+    if (delay != null) {
+      time = '+${delay}';
+    }
+    if (time == null) {
+      nativeInstance.triggerAttackRelease(note, duration);
+    } else {
+      nativeInstance.triggerAttackRelease(note, duration, time);
+    }
   }
 }
 
@@ -146,10 +154,10 @@ ToneContext get toneContext =>
 final _initLock = Lock();
 
 Future<ToneContext> initToneContext({String path, bool debug}) async {
-  path = tone_js.toneJsPath(path: path, debug: debug);
   if (_toneContext == null) {
     await _initLock.synchronized(() async {
       if (_toneContext == null) {
+        path = tone_js.toneJsPath(path: path, debug: debug);
         //devPrint(js.context['require']);
         //devPrint(js.context['define']);
         // Tone defined globally?
