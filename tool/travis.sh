@@ -1,10 +1,8 @@
 #!/bin/bash
 
 # Fast fail the script on failures.
-set -e
+set -ex
 
-dartanalyzer --fatal-warnings \
-  lib/tone_js.dart \
-  lib/tone_js_loader.dart
-
+dartanalyzer --fatal-warnings example lib test
 pub run test -p vm,firefox
+pub run build_runner test -- -p vm,firefox

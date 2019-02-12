@@ -1,15 +1,19 @@
-@JS('Tone')
-library tone_js;
+@JS()
+library tekartik_tone_js;
+
+// ignore_for_file: non_constant_identifier_names
 
 import 'package:js/js.dart';
 
-@JS('GainNode')
+@JS()
+@anonymous
 class GainNode {
-  external connect(p1, [p2, p3]);
-  external disconnect([p1]);
+  external dynamic connect(p1, [p2, p3]);
+  external dynamic disconnect([p1]);
 }
 
-@JS('AudioContext')
+@JS()
+@anonymous
 class AudioContext {
   external GainNode createGain();
 }
@@ -21,13 +25,21 @@ class InstrumentOptions {
   external int get volume;
 }
 
-@JS('Tone')
+@JS()
+@anonymous
 class Tone {
-  external set(param, [value, rampTime]);
-  external get([param]);
-  external connect(p1, [p2, p3]);
-  external disconnect([p1]);
-  external dispose();
+  external AudioContext get context;
+  external String get version;
+  // Sampler ctor
+  external Function get Sampler;
+  // SimpleSynth ctor
+  external Function get Synth;
+  external dynamic set(param, [value, rampTime]);
+  external dynamic get([param]);
+  external dynamic connect(p1, [p2, p3]);
+  external dynamic disconnect([p1]);
+  external dynamic dispose();
+  external dynamic toMaster();
 }
 
 @JS()
@@ -37,18 +49,22 @@ class VolumeOptions {
 }
 
 @JS()
+@anonymous
 class Param {
   external num get value;
 }
 
 @JS()
+@anonymous
 class Volume extends Tone {
+  external Param get volume;
+  external dynamic rampTo(num value, num delay);
+}
+
+/*
   external factory Volume(
       [dynamic /* VolumeOptions or decibel value */ optionsOrValue]);
-
-  external Param get volume;
-  external rampTo(num value, num delay);
-}
+      */
 
 @JS()
 @anonymous
@@ -62,13 +78,9 @@ class OscillatorOptions {
 }
 
 @JS()
+@anonymous
 class Oscillator extends Tone {
-  external Oscillator(
-      [dynamic /*OscillatorOptions | num(frequency)*/ options,
-      dynamic /* type */ param2]);
-  external start();
-  external toMaster();
-
+  external dynamic start();
   // OscillatorOptions
   external Param get volume;
   external Param get frequency;
@@ -76,27 +88,57 @@ class Oscillator extends Tone {
   external String get type;
 }
 
+/*
+  external Oscillator(
+      [dynamic /*OscillatorOptions | num(frequency)*/ options,
+      dynamic /* type */ param2]);
+ */
+
 @JS()
+@anonymous
+class SamplerOptions {
+  external factory SamplerOptions({Function() onload, String baseUrl});
+  external Function() get onload;
+  external String get baseUrl;
+}
+
+@JS()
+@anonymous
+class Sampler extends Instrument {
+  // external Sampler(dynamic samples, SamplerOptions options);
+  @override
+  external Sampler toMaster();
+  external void on(String event, Function callback);
+}
+
+@JS()
+@anonymous
 class Master extends Tone {
   external static Volume get volume;
 }
 
 @JS()
+@anonymous
 class Instrument extends Tone {
-  external Instrument([dynamic /*InstrumentOptions */ options]);
+  // external Instrument([dynamic /*InstrumentOptions */ options]);
   // note is String (C4) or num (440)
-  external triggerAttackRelease(var note, String duration);
+  external void triggerAttack(String note, [dynamic time]);
+  external void triggerAttackRelease(String note, dynamic duration,
+      [dynamic time]);
   external Param get volume;
 }
 
 @JS()
-class SimpleSynth {
-  external SimpleSynth();
-  external Instrument toMaster();
+@anonymous
+class Synth extends Instrument {
+  @override
+  external Synth toMaster();
 }
 
-@JS()
-external String get version;
+// To check if available globally
+@JS('Tone')
+external Tone get GlobalTone;
 
-@JS()
-external AudioContext get context;
+external dynamic require(List<String> id, Function callback);
+@JS('require')
+external dynamic requireCheck(id);

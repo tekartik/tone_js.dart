@@ -1,18 +1,19 @@
-/*define(["Tone/component/Volume", "helper/Basic", "helper/Meter", "Test",
-"Tone/signal/Signal", "helper/PassAudio", "helper/PassAudioStereo"],
-function (Volume, Basic, Meter, Test, Signal, PassAudio, PassAudioStereo) {
-*/
 @TestOn("browser")
-import '../common/test_import.dart';
+library tekartik_tone_js.test.oscillator_test;
 
-main() {
+import 'package:test/test.dart';
+
+import 'common/test_import.dart';
+
+void main() {
   group('source/oscillator', () {
     setUpAll(toneJsSetup);
 
+    /*
     group('get/set', () {
       test("can be set with an options object", () {
-        var osc = new Oscillator();
-        osc.set(new OscillatorOptions(
+        var osc = Oscillator();
+        osc.set(OscillatorOptions(
             volume: -10, frequency: 231, detune: -21, type: "square"));
         expect(osc.get().volume, closeTo(-10, 0.1));
         expect(osc.get().frequency, equals(231));
@@ -25,13 +26,14 @@ main() {
       });
 
       test("can be get the values as an object", () {
-        var osc = new Oscillator(450, "square");
+        var osc = Oscillator(450, "square");
         expect(osc.get().frequency, equals(450));
         expect(osc.get().type, equals("square"));
         osc.dispose();
       });
     });
-  });
+    */
+  }, skip: true);
 }
 /*
 define(["helper/Basic", "Tone/source/Oscillator", "helper/Offline", "helper/SourceTests",
