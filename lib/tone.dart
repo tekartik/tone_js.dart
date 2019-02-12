@@ -46,7 +46,7 @@ class ToneContext {
         // devPrint('Sampler loaded $_buffers');
         completer.complete();
       }))
-    ]);
+    ]) as tone_js.Sampler;
     // devPrint('nativeSampler $nativeSampler');
     /*
     var sampler = tone_js.Sampler(mapToJSObj(samples),
