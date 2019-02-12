@@ -5,7 +5,7 @@ import 'package:test/test.dart';
 
 import 'common/test_import.dart';
 
-main() {
+void main() {
   group('instrument/instrument', () {
     setUpAll(toneJsSetup);
 

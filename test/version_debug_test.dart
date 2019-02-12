@@ -8,8 +8,8 @@ import 'package:dev_test/test.dart';
 void main() {
   test('version', () async {
     expect(toneContext, isNull);
-    var toneContext_ = await initToneContext(debug: true);
-    expect(toneContext_.version, 'r12');
-    expect(toneContext, toneContext_);
+    var localToneContext = await initToneContext(debug: true);
+    expect(localToneContext.version, 'r12');
+    expect(toneContext, localToneContext);
   });
 }

@@ -1,16 +1,18 @@
 library tekartik_tone;
 
 import 'dart:async';
-import 'package:js/js.dart';
-import 'package:tekartik_browser_utils/browser_utils_import.dart';
-import 'package:tekartik_tone_js/tone_js_loader.dart' as tone_js;
-import 'package:tekartik_tone_js/tone_js.dart' as tone_js;
-import 'package:synchronized/synchronized.dart';
-import 'package:js/js_util.dart' as js;
 import 'dart:js' as js;
+
+import 'package:js/js.dart';
+import 'package:js/js_util.dart' as js;
+import 'package:synchronized/synchronized.dart';
+import 'package:tekartik_browser_utils/browser_utils_import.dart';
+import 'package:tekartik_tone_js/tone_js.dart' as tone_js;
+import 'package:tekartik_tone_js/tone_js_loader.dart' as tone_js;
 
 class ToneContext {
   final tone_js.Tone nativeInstance;
+
   ToneContext._(this.nativeInstance);
 
   String get version => nativeInstance.version;
@@ -155,6 +157,7 @@ class Synth extends Instrument {
 }
 
 ToneContext _toneContext;
+
 ToneContext get toneContext =>
     _toneContext ??
     () {
@@ -174,7 +177,7 @@ Future<ToneContext> initToneContext({String path, bool debug}) async {
         //devPrint(js.context['define']);
         // Tone defined globally?
 
-        _useGlobal() {
+        void _useGlobal() {
           _toneContext = ToneContext._(tone_js.GlobalTone);
         }
 
@@ -182,7 +185,7 @@ Future<ToneContext> initToneContext({String path, bool debug}) async {
           // devPrint('Global tone object');
           _useGlobal();
         } else if (js.context['require'] != null) {
-          _useRequire() async {
+          Future _useRequire() async {
             var completer = Completer();
             tone_js.require([path], allowInterop((tone_js.Tone native) {
               _toneContext = ToneContext._(native);

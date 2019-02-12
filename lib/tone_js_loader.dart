@@ -1,7 +1,8 @@
 library tekartik.mdl_js.loader;
 
-import 'package:tekartik_browser_utils/js_utils.dart';
 import 'dart:async';
+
+import 'package:tekartik_browser_utils/js_utils.dart';
 
 // bool get isToneJsLoaded => js.context['Tone'] != null;
 

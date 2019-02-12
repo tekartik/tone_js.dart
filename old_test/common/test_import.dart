@@ -1,15 +1,14 @@
 @JS()
 library tekartik_tone_js.test_import;
 
-import 'package:tekartik_tone_js/tone.dart';
-import 'package:tekartik_tone_js/tone_js_loader.dart';
-import 'package:tekartik_tone_js/tone_js.dart';
+import 'package:js/js.dart';
 import 'package:tekartik_tone_js/src/import_lite.dart';
+import 'package:tekartik_tone_js/tone.dart';
+import 'package:tekartik_tone_js/tone_js.dart';
+import 'package:tekartik_tone_js/tone_js_loader.dart';
 
 export 'package:tekartik_tone_js/tone_js.dart';
 // export 'package:dev_test/test.dart';
-
-import 'package:js/js.dart';
 
 Future toneJsSetup() async {
   await loadToneJs();
@@ -19,7 +18,9 @@ Future toneJsSetup() async {
 @anonymous
 class Test {
   external factory Test({GainNode input});
+
   external GainNode get input;
+
   external set input(GainNode node);
 }
 
@@ -28,7 +29,7 @@ Future<Test> createTest() async {
   return test;
 }
 
-connectTest(Test test, node, [inputNumber]) {
+void connectTest(Test test, node, [inputNumber]) {
   test.input.connect(node, 0, inputNumber);
   test.input.disconnect();
 }

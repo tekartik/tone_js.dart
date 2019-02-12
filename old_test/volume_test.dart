@@ -9,7 +9,7 @@ import 'package:test/test.dart';
 
 import 'common/test_import.dart';
 
-main() {
+void main() {
   group('component/volume', () {
     setUpAll(toneJsSetup);
 

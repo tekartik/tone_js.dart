@@ -5,7 +5,7 @@ import 'package:tekartik_tone_js/tone_js_loader.dart';
 
 import 'tone_menu.dart';
 
-main() async {
+Future main() async {
   await initTestMenuBrowser();
 
   mainToneMenu();

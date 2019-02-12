@@ -1,7 +1,7 @@
 import 'package:tekartik_test_menu_browser/test_menu_mdl_browser.dart';
 import 'package:tekartik_tone_js/tone.dart';
 
-mainToneMenu() async {
+void mainToneMenu() {
   menu('tone', () {
     item('initToneContext', () async {
       var toneContext = await initToneContext();

@@ -1,13 +1,15 @@
 @JS()
 library tekartik_tone_js;
 
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:js/js.dart';
 
 @JS()
 @anonymous
 class GainNode {
-  external connect(p1, [p2, p3]);
-  external disconnect([p1]);
+  external dynamic connect(p1, [p2, p3]);
+  external dynamic disconnect([p1]);
 }
 
 @JS()
@@ -32,12 +34,12 @@ class Tone {
   external Function get Sampler;
   // SimpleSynth ctor
   external Function get Synth;
-  external set(param, [value, rampTime]);
-  external get([param]);
-  external connect(p1, [p2, p3]);
-  external disconnect([p1]);
-  external dispose();
-  external toMaster();
+  external dynamic set(param, [value, rampTime]);
+  external dynamic get([param]);
+  external dynamic connect(p1, [p2, p3]);
+  external dynamic disconnect([p1]);
+  external dynamic dispose();
+  external dynamic toMaster();
 }
 
 @JS()
@@ -56,7 +58,7 @@ class Param {
 @anonymous
 class Volume extends Tone {
   external Param get volume;
-  external rampTo(num value, num delay);
+  external dynamic rampTo(num value, num delay);
 }
 
 /*
@@ -78,7 +80,7 @@ class OscillatorOptions {
 @JS()
 @anonymous
 class Oscillator extends Tone {
-  external start();
+  external dynamic start();
   // OscillatorOptions
   external Param get volume;
   external Param get frequency;
@@ -104,6 +106,7 @@ class SamplerOptions {
 @anonymous
 class Sampler extends Instrument {
   // external Sampler(dynamic samples, SamplerOptions options);
+  @override
   external Sampler toMaster();
   external void on(String event, Function callback);
 }
@@ -128,6 +131,7 @@ class Instrument extends Tone {
 @JS()
 @anonymous
 class Synth extends Instrument {
+  @override
   external Synth toMaster();
 }
 
