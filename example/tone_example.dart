@@ -10,7 +10,7 @@ Future main() async {
 
   mainToneMenu();
 
-  menu("main", () {
+  menu('main', () {
     item('load', () async {
       await loadToneJs();
     });
@@ -29,7 +29,7 @@ Future main() async {
       var synth = Synth().toMaster();
 
       // play a middle c for the duration of an 8th note
-      synth.triggerAttackRelease("C4", "8n");
+      synth.triggerAttackRelease('C4', '8n');
     });
 
     item('Trigger for 1s', () async {
@@ -38,7 +38,7 @@ Future main() async {
       var synth = Synth().toMaster();
 
       // play a middle c for the duration of an 8th note
-      synth.triggerAttackRelease("C4", "1", delay: 1);
+      synth.triggerAttackRelease('C4', '1', delay: 1);
     });
     item('Trigger for 2s', () async {
       await initToneContext();
@@ -46,7 +46,7 @@ Future main() async {
       var synth = Synth().toMaster();
 
       // play a middle c for the duration of an 8th note
-      synth.triggerAttackRelease("C4", "2", delay: 1);
+      synth.triggerAttackRelease('C4', '2', delay: 1);
     });
     /*
     item('Oscillator', () {
@@ -80,8 +80,8 @@ Future main() async {
       await completer.future;
       write('loaded');
       sampler.triggerAttack('C4');
-      sampler.triggerAttack('C3', "+1.0");
-      sampler.triggerAttack('C5', "+2.0");
+      sampler.triggerAttack('C3', '+1.0');
+      sampler.triggerAttack('C5', '+2.0');
     });
     */
   });
