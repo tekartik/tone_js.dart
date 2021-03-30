@@ -1,8 +1,10 @@
 name: tekartik_tone_js
 version: 0.4.0
 description: tone js wrapper
+publish_to: none
 environment:
-  sdk: '>=2.1.0-dev <3.0.0'
+  sdk: '>=2.10.0-dev <3.0.0'
+
 dependencies:
   js: any
   synchronized:

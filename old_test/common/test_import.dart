@@ -25,7 +25,7 @@ class Test {
 }
 
 Future<Test> createTest() async {
-  Test test = Test(input: (await initToneContext()).context.createGain());
+  var test = Test(input: (await initToneContext()).context.createGain());
   return test;
 }
 

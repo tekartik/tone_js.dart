@@ -32,7 +32,7 @@ class ToneContext {
     }
 
     // devPrint('constructing Sample');
-    tone_js.Sampler nativeSampler = js.callConstructor(nativeInstance.Sampler, [
+    var nativeSampler = js.callConstructor(nativeInstance.Sampler, [
       mapToJSObj(samples),
 
       /*
@@ -85,7 +85,7 @@ class Sampler extends Tone {
   void triggerAttack(String note, {dynamic delay}) {
     dynamic time;
     if (delay != null) {
-      time = '+${delay}';
+      time = '+$delay';
     }
     if (time == null) {
       nativeInstance.triggerAttack(note);
@@ -97,7 +97,7 @@ class Sampler extends Tone {
   void triggerAttackRelease(String note, dynamic duration, {dynamic delay}) {
     String time;
     if (delay != null) {
-      time = '+${delay}';
+      time = '+$delay';
     }
     if (time == null) {
       nativeInstance.triggerAttackRelease(note, duration);
@@ -119,7 +119,7 @@ class Instrument extends Tone {
   void triggerAttack(String note, {dynamic delay}) {
     String time;
     if (delay != null) {
-      time = '+${delay}';
+      time = '+$delay';
     }
     if (time == null) {
       nativeInstance.triggerAttack(note);
@@ -131,7 +131,7 @@ class Instrument extends Tone {
   void triggerAttackRelease(String note, dynamic duration, {dynamic delay}) {
     String time;
     if (delay != null) {
-      time = '+${delay}';
+      time = '+$delay';
     }
     if (time == null) {
       nativeInstance.triggerAttackRelease(note, duration);

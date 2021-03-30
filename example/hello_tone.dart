@@ -5,5 +5,5 @@ void main() {
   var synth = Synth().toMaster();
 
   // play a middle c for the duration of an 8th note
-  synth.triggerAttackRelease("C4", "8n");
+  synth.triggerAttackRelease('C4', '8n');
 }
