@@ -1,6 +1,5 @@
-import 'package:tekartik_tone_js/tone.dart';
-
 import 'package:tekartik_test_menu_browser/test_menu_mdl_browser.dart';
+import 'package:tekartik_tone_js/tone.dart';
 import 'package:tekartik_tone_js/tone_js_loader.dart';
 
 import 'tone_menu.dart';
