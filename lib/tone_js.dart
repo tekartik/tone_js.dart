@@ -21,7 +21,7 @@ class AudioContext {
 @JS()
 @anonymous
 class InstrumentOptions {
-  external factory InstrumentOptions({int volume});
+  external factory InstrumentOptions({int? volume});
   external int get volume;
 }
 
@@ -45,7 +45,7 @@ class Tone {
 @JS()
 @anonymous
 class VolumeOptions {
-  external factory VolumeOptions({int volume});
+  external factory VolumeOptions({int? volume});
 }
 
 @JS()
@@ -70,7 +70,7 @@ class Volume extends Tone {
 @anonymous
 class OscillatorOptions {
   external factory OscillatorOptions(
-      {int volume, num frequency, num detune, String type});
+      {int? volume, num? frequency, num? detune, String? type});
   external Param get volume;
   external Param get frequency;
   external Param get detune;
@@ -97,7 +97,7 @@ class Oscillator extends Tone {
 @JS()
 @anonymous
 class SamplerOptions {
-  external factory SamplerOptions({Function() onload, String baseUrl});
+  external factory SamplerOptions({Function()? onload, String? baseUrl});
   external Function() get onload;
   external String get baseUrl;
 }
@@ -139,6 +139,6 @@ class Synth extends Instrument {
 @JS('Tone')
 external Tone get GlobalTone;
 
-external dynamic require(List<String> id, Function callback);
+external dynamic require(List<String?> id, Function callback);
 @JS('require')
 external dynamic requireCheck(id);
