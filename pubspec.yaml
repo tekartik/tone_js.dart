@@ -3,7 +3,7 @@ version: 0.4.0
 description: tone js wrapper
 publish_to: none
 environment:
-  sdk: '>=2.10.0-dev <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   js: any
@@ -11,18 +11,18 @@ dependencies:
   tekartik_browser_utils:
     git:
       url: git://github.com/tekartik/browser_utils.dart
-      ref: dart2
+      ref: null_safety
     version: '>=0.6.8'
 dev_dependencies:
   tekartik_build_utils:
     git:
       url: git://github.com/tekartik/build_utils.dart
-      ref: dart2
+      ref: null_safety
     version: '>=0.6.5'
   tekartik_test_menu_browser:
     git:
       url: git://github.com/tekartik/test_menu.dart
-      ref: dart2
+      ref: null_safety
       path: test_menu_browser
     version: '>=0.4.8+1'
   test: '>=1.2.0'
@@ -33,4 +33,4 @@ dev_dependencies:
   chrome_travis:
     git:
       url: git://github.com/tekartik/chrome_travis.dart
-      ref: dart2
+      ref: null_safety

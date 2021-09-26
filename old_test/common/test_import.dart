@@ -17,7 +17,7 @@ Future toneJsSetup() async {
 @JS()
 @anonymous
 class Test {
-  external factory Test({GainNode input});
+  external factory Test({GainNode? input});
 
   external GainNode get input;
 
