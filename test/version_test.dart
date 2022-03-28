@@ -9,6 +9,6 @@ void main() {
     expect(toneContext, isNull);
     await initToneContext();
     expect(toneContext, isNotNull);
-    expect(toneContext!.version, 'r12');
+    expect(toneContext!.version, '14.7.77');
   });
 }

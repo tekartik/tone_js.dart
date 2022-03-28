@@ -41,7 +41,7 @@ class ToneContext {
 
 */
 
-      tone_js.SamplerOptions(onload: allowInterop(([_buffers]) {
+      tone_js.SamplerOptions(onload: allowInterop(([buffers]) {
         // devPrint('Sampler loaded $_buffers');
         completer.complete();
       }))

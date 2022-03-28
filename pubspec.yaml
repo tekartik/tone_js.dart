@@ -1,5 +1,5 @@
 name: tekartik_tone_js
-version: 0.4.0
+version: 0.5.0
 description: tone js wrapper
 publish_to: none
 environment:
@@ -30,7 +30,4 @@ dev_dependencies:
   build_runner: '>=0.10.1'
   build_test: '>=0.10.3'
   build_web_compilers: '>=0.4.2'
-  chrome_travis:
-    git:
-      url: https://github.com/tekartik/chrome_travis.dart
-      ref: dart2_3
+  process_run:
