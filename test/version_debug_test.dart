@@ -8,7 +8,7 @@ void main() {
   test('version', () async {
     expect(toneContext, isNull);
     var localToneContext = await initToneContext(debug: true);
-    expect(localToneContext.version, 'r12');
+    expect(localToneContext.version, '14.7.77');
     expect(toneContext, localToneContext);
   });
 }
