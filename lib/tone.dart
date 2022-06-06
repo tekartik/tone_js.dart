@@ -174,15 +174,15 @@ Future<ToneContext> initToneContext({String? path, bool? debug}) async {
         //devPrint(js.context['define']);
         // Tone defined globally?
 
-        void _useGlobal() {
+        void useGlobal() {
           _toneContext = ToneContext._(tone_js.GlobalTone);
         }
 
         if (js.context['Tone'] != null) {
           // devPrint('Global tone object');
-          _useGlobal();
+          useGlobal();
         } else if (js.context['require'] != null) {
-          Future _useRequire() async {
+          Future useRequire() async {
             var completer = Completer();
             tone_js.require([path], allowInterop((tone_js.Tone native) {
               _toneContext = ToneContext._(native);
@@ -194,7 +194,7 @@ Future<ToneContext> initToneContext({String? path, bool? debug}) async {
 
           // devPrint('Using require');
           try {
-            await _useRequire();
+            await useRequire();
           } catch (_) {
             /*
             devPrint('Loading js');
@@ -205,7 +205,7 @@ Future<ToneContext> initToneContext({String? path, bool? debug}) async {
         } else {
           // devPrint('Loading global js');
           await tone_js.loadToneJs(path: path);
-          _useGlobal();
+          useGlobal();
         }
         // devPrint(_toneContext.nativeInstance.version);
 
