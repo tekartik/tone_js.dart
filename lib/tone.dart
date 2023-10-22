@@ -141,8 +141,7 @@ class Instrument extends Tone {
 class Synth extends Instrument {
   tone_js.Synth? get nativeSynth => nativeInstance as tone_js.Synth?;
 
-  Synth.fromNativeInstance(tone_js.Synth nativeInstance)
-      : super(nativeInstance);
+  Synth.fromNativeInstance(tone_js.Synth super.nativeInstance);
 
   Synth()
       : super(js.callConstructor(_toneContext!.nativeInstance.Synth, [])
