@@ -6,6 +6,7 @@ import 'package:js/js_util.dart' as js;
 import 'package:tekartik_browser_utils/browser_utils_import.dart';
 import 'package:tekartik_tone_js/tone_js.dart' as tone_js;
 import 'package:tekartik_tone_js/tone_js_loader.dart' as tone_js;
+import 'dart:html';
 
 class ToneContext {
   final tone_js.Tone nativeInstance;
