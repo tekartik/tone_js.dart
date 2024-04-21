@@ -8,7 +8,7 @@ class Synth extends Monophonic {
 
   Synth() : super.fromNativeInstance(toneContext.toneJs.newSynth());
 
-  @Deprecated('Use toDestination')
+  // @Deprecated('Use toDestination')
   Synth toMaster() {
     return toDestination();
   }

@@ -136,7 +136,7 @@ class Instrument extends Tone {
 @JS()
 @anonymous
 class Synth extends Instrument {
-  @Deprecated('Use toDestination')
+  // @Deprecated('Use toDestination')
   @override
   external Synth toMaster();
 

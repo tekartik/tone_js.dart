@@ -41,7 +41,7 @@ extension SamplePrvExt on Sampler {
 class Sampler extends Instrument {
   Sampler.fromNativeInstance(tonejs.SamplerJs super.samplerJs);
 
-  @Deprecated('Use toDestination')
+  // @Deprecated('Use toDestination')
   Sampler toMaster() {
     return toDestination();
   }
