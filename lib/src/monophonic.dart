@@ -1,9 +1,7 @@
 import 'dart:js_interop';
-import 'dart:js_util' as js;
 
 import 'instrument.dart';
 import 'js_interop.dart' as tonejs;
-import 'js_interop_compat.dart' as tone_js;
 import 'tone.dart';
 import 'tone_utils_js.dart';
 
@@ -52,14 +50,9 @@ extension MonophonicExt on Monophonic {
 }
 
 class Monophonic extends Instrument {
-  Monophonic.fromNativeInstance(
-      tone_js.Synth super.nativeInstance, tonejs.SynthJs super.instrumentJs);
+  Monophonic.fromNativeInstance(tonejs.SynthJs super.instrumentJs);
 
-  Monophonic()
-      : super(
-            js.callConstructor(toneContext.nativeInstance.Synth, [])
-                as tone_js.Synth,
-            toneContext.toneJs.newSynth());
+  Monophonic() : super(toneContext.toneJs.newSynth());
 }
 
 extension MonophonicPrvExt on Monophonic {

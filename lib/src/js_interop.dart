@@ -9,10 +9,18 @@ extension type ToneJs._(JSObject _) implements JSObject {
   external JSFunction newSynthFn;
   @JS('Sampler')
   external JSFunction newSamplerFn;
+  @JS('Monophonic')
+  external JSFunction newMonophonicFn;
 }
 
 extension ToneJsExt on ToneJs {
+  external String get version;
+  // Audio context
+  external AudioContextJs get context;
+
   SynthJs newSynth() => newSynthFn.callAsConstructor<SynthJs>();
+  MonophonicJs newMonophonic() =>
+      newMonophonicFn.callAsConstructor<MonophonicJs>();
 
   SamplerJs newSampler(JSAny samples, [SamplerOptionsJs? options]) =>
       newSamplerFn.callAsConstructor<SamplerJs>(samples, options);
@@ -65,3 +73,16 @@ external JSAny? globalRequireJsOrNull;
 
 @JS('require')
 external JSAny requireJs(JSArray<JSString> ids, JSFunction callback);
+
+extension type GainNodeJs._(JSObject _) implements JSObject {}
+
+extension GainNodeJsExt on GainNodeJs {
+  external void connect(JSAny p1, [JSNumber? p2, JSNumber? p3]);
+  external void disconnect([JSAny? p1]);
+}
+
+extension type AudioContextJs._(JSObject _) implements JSObject {}
+
+extension AudioContextJsExt on AudioContextJs {
+  external GainNodeJs createGain();
+}
