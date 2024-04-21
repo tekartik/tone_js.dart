@@ -114,21 +114,23 @@ Future<ToneContext> initToneContext({String? path, bool? debug}) async {
           useGlobal();
         }
 
-        //devPrint('js.context["Tone"] ${js.context['Tone']}');
         // devPrint('globalToneJsOrNull $globalToneJsOrNull');
-        //devPrint('js.context["require"] ${js.context['require']}');
         // devPrint('globalRequireOrNull $globalRequireOrNull');
 
         if (globalToneJsOrNull != null) {
           // devPrint('Global tone object');
           useGlobal();
-        } else if (globalRequireOrNull != null) {
+        } else if (globalRequireJsOrNull != null) {
           Future useRequire() async {
             var completer = Completer<void>();
             tone_js.require([path], allowInterop((tone_js.Tone native) {
-              devWarning('TODO');
-              _toneContext = ToneContext._(native, globalToneJsOrNull!);
-              completer.complete();
+              var onLoad = (tonejs.ToneJs toneJs) {
+                _toneContext = ToneContext._(native, toneJs);
+                completer.complete();
+              }.toJS;
+              requireJs([path!].map((e) => e.toJS).toList().toJS, onLoad);
+              //_toneContext = ToneContext._(native, globalToneJsOrNull!);
+              //completer.complete();
             }));
 
             await completer.future;

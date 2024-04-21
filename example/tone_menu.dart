@@ -4,11 +4,11 @@ import 'package:tekartik_tone_js/tone.dart';
 void mainToneMenu() {
   menu('tone', () {
     item('initToneContext', () async {
-      var toneContext = await initToneContext();
-      write(toneContext.version);
+      var ctx = await initToneContext();
+      write('version: ${ctx.version}');
     });
 
-    item('Sampler', () async {
+    item('Quick sampler', () async {
       var ctx = await initToneContext(debug: true);
       write('version: ${ctx.version}');
       var sampler = (await ctx.createSampler({'C4': 'audio/C4[.mp3|.ogg]'}))
@@ -20,7 +20,7 @@ void mainToneMenu() {
       sampler.triggerAttackRelease('D3', .5, delay: 3.0);
     });
 
-    item('Synth', () async {
+    item('Quick synth', () async {
       var ctx = await initToneContext();
       //write('version: ${ctx.version}');
       var synth = ctx.newSynth().toDestination();

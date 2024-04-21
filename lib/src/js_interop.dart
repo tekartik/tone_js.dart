@@ -61,4 +61,7 @@ extension SamplerJsExt on SamplerJs {
 }
 
 @JS('require')
-external JSAny? globalRequireOrNull;
+external JSAny? globalRequireJsOrNull;
+
+@JS('require')
+external JSAny requireJs(JSArray<JSString> ids, JSFunction callback);
