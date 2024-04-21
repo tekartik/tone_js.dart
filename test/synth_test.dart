@@ -9,10 +9,13 @@ void main() {
     setUpAll(() async {
       await initToneContext();
     });
-    test('create', () {
+    test('create', () async {
       var synth = Synth();
-      synth = synth.toMaster();
+      synth = synth.toDestination();
       expect(synth, isNotNull);
+      // No sound in unit test
+      //synth.triggerAttackRelease('C4', '8n');
+      //await sleep(2500);
     });
   });
 }

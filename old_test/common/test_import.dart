@@ -3,8 +3,8 @@ library tekartik_tone_js.test_import;
 
 import 'package:js/js.dart';
 import 'package:tekartik_tone_js/src/import_lite.dart';
+import 'package:tekartik_tone_js/src/js_interop_compat.dart';
 import 'package:tekartik_tone_js/tone.dart';
-import 'package:tekartik_tone_js/tone_js.dart';
 import 'package:tekartik_tone_js/tone_js_loader.dart';
 
 export 'package:tekartik_tone_js/tone_js.dart';
@@ -29,7 +29,7 @@ Future<Test> createTest() async {
   return test;
 }
 
-void connectTest(Test test, node, [inputNumber]) {
+void connectTest(Test test, Object? node, [Object? inputNumber]) {
   test.input.connect(node, 0, inputNumber);
   test.input.disconnect();
 }

@@ -16,6 +16,5 @@ String toneJsPath({String? path, bool? debug}) {
 Future loadToneJs({String? path, bool? debug}) async {
   path = toneJsPath(path: path, debug: debug);
   // load js
-  await loadJavascriptScript(
-      "packages/tekartik_tone_js/js/${debug == true ? 'Tone.js' : 'Tone.js'}");
+  await loadJavascriptScript(path);
 }

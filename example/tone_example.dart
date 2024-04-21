@@ -9,7 +9,7 @@ Future main() async {
 
   mainToneMenu();
 
-  menu('main', () {
+  menu('load', () {
     item('load', () async {
       await loadToneJs();
     });
@@ -22,19 +22,11 @@ Future main() async {
     item('initToneContext debug', () async {
       await initToneContext(debug: true);
     });
-    item('SimpleSynth', () async {
-      await initToneContext();
-      // create one of Tone's built-in synthesizers and connect it to the master output
-      var synth = Synth().toMaster();
-
-      // play a middle c for the duration of an 8th note
-      synth.triggerAttackRelease('C4', '8n');
-    });
 
     item('Trigger for 1s', () async {
       await initToneContext();
       // create one of Tone's built-in synthesizers and connect it to the master output
-      var synth = Synth().toMaster();
+      var synth = Synth().toDestination();
 
       // play a middle c for the duration of an 8th note
       synth.triggerAttackRelease('C4', '1', delay: 1);
@@ -42,7 +34,7 @@ Future main() async {
     item('Trigger for 2s', () async {
       await initToneContext();
       // create one of Tone's built-in synthesizers and connect it to the master output
-      var synth = Synth().toMaster();
+      var synth = Synth().toDestination();
 
       // play a middle c for the duration of an 8th note
       synth.triggerAttackRelease('C4', '2', delay: 1);
