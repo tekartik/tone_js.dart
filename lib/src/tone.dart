@@ -1,6 +1,5 @@
 library tekartik_tone;
 
-import 'dart:html';
 import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
 
@@ -71,7 +70,8 @@ ToneContext? _toneContext;
 ToneContext? get toneContextOrNull =>
     _toneContext ??
     () {
-      window.console.warn(
+      // ignore: avoid_print
+      print(
           'toneContext not initialized yet, please call initToneContext first');
       return null;
     }();
