@@ -1,8 +1,8 @@
 @TestOn('browser')
 library tekartik_tone_js.test.version_test;
 
-import 'package:dev_test/test.dart';
 import 'package:tekartik_tone_js/src/tone.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('version', () async {
