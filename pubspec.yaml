@@ -3,7 +3,7 @@ version: 0.6.1
 description: tone js wrapper
 publish_to: none
 environment:
-  sdk: '>=3.3.3 <4.0.0'
+  sdk: ^3.5.0
 
 dependencies:
   js: any
