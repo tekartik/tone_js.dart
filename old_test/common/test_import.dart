@@ -1,7 +1,5 @@
-@JS()
-library tekartik_tone_js.test_import;
+library;
 
-import 'package:js/js.dart';
 import 'package:tekartik_tone_js/src/import_lite.dart';
 // ignore: unused_import
 import 'package:tekartik_tone_js/src/js_interop_compat.dart';
