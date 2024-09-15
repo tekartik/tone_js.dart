@@ -1,9 +1,10 @@
 library tekartik_tone;
 
+import 'dart:async';
 import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
 
-import 'package:tekartik_browser_utils/browser_utils_import.dart';
+import 'package:synchronized/synchronized.dart';
 import 'package:tekartik_tone_js/src/js_interop.dart';
 import 'package:tekartik_tone_js/tone.dart';
 import 'package:tekartik_tone_js/tone_js_loader.dart' as tone_js;
