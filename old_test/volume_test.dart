@@ -3,7 +3,7 @@
 function (Volume, Basic, Meter, Test, Signal, PassAudio, PassAudioStereo) {
 */
 @TestOn('browser')
-library tekartik_tone_js.test.volume_test;
+library;
 
 import 'package:test/test.dart';
 

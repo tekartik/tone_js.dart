@@ -1,5 +1,5 @@
 @TestOn('browser')
-library tekartik_tone_js.test.synth_test;
+library;
 
 import 'package:tekartik_tone_js/tone.dart';
 import 'package:test/test.dart';

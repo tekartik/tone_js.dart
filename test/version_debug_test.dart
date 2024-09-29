@@ -1,5 +1,5 @@
 @TestOn('browser')
-library tekartik_tone_js.test.version_debug_test;
+library;
 
 import 'package:tekartik_tone_js/src/tone.dart';
 import 'package:test/test.dart';

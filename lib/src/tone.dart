@@ -1,4 +1,4 @@
-library tekartik_tone;
+library;
 
 import 'dart:async';
 import 'dart:js_interop';

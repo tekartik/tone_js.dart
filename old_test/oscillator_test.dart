@@ -1,5 +1,5 @@
 @TestOn('browser')
-library tekartik_tone_js.test.oscillator_test;
+library;
 
 import 'package:test/test.dart';
 

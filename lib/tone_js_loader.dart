@@ -1,4 +1,4 @@
-library tekartik.mdl_js.loader;
+library;
 
 import 'dart:async';
 
