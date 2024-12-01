@@ -13,6 +13,10 @@ dependencies:
       url: https://github.com/tekartik/browser_utils.dart
       ref: dart3a
     version: '>=0.6.8'
+  tekartik_common_utils:
+    git:
+      url: https://github.com/tekartik/common_utils.dart
+      ref: dart3a
 dev_dependencies:
   tekartik_build_utils:
     git:
