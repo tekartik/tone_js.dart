@@ -3,6 +3,7 @@ library;
 
 // ignore_for_file: non_constant_identifier_names
 
+// ignore: deprecated_member_use
 import 'package:js/js.dart';
 
 @JS()

@@ -1,4 +1,4 @@
-import 'package:tekartik_test_menu_browser/test_menu_mdl_browser.dart';
+import 'package:tekartik_test_menu_browser/test_menu_web.dart';
 import 'package:tekartik_tone_js/tone.dart';
 
 void mainToneMenu() {
