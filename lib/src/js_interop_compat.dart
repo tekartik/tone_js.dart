@@ -71,8 +71,12 @@ class Volume extends Tone {
 @JS()
 @anonymous
 class OscillatorOptions {
-  external factory OscillatorOptions(
-      {int? volume, num? frequency, num? detune, String? type});
+  external factory OscillatorOptions({
+    int? volume,
+    num? frequency,
+    num? detune,
+    String? type,
+  });
   external Param get volume;
   external Param get frequency;
   external Param get detune;
@@ -129,8 +133,11 @@ class Instrument extends Tone {
   // external Instrument([dynamic /*InstrumentOptions */ options]);
   // note is String (C4) or num (440)
   external void triggerAttack(String note, [dynamic time]);
-  external void triggerAttackRelease(String note, dynamic duration,
-      [dynamic time]);
+  external void triggerAttackRelease(
+    String note,
+    dynamic duration, [
+    dynamic time,
+  ]);
   external Param get volume;
 }
 

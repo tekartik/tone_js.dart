@@ -44,7 +44,10 @@ extension MonophonicExt on Monophonic {
       monophonicJs.triggerAttackRelease(note.toJS, durationToJs(duration));
     } else {
       monophonicJs.triggerAttackRelease(
-          note.toJS, durationToJs(duration), timeJs);
+        note.toJS,
+        durationToJs(duration),
+        timeJs,
+      );
     }
   }
 }

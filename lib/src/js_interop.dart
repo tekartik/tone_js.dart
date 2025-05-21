@@ -44,10 +44,10 @@ extension InstrumentJsExt on InstrumentJs {
 }
 
 extension MonophonicJsExt on MonophonicJs {
-// https://tonejs.github.io/docs/13.8.25/Synth#triggerattackrelease
+  // https://tonejs.github.io/docs/13.8.25/Synth#triggerattackrelease
   external void triggerAttackRelease(JSAny note, JSAny duration, [JSAny? time]);
 
-// https://tonejs.github.io/docs/13.8.25/Sampler#triggerattack
+  // https://tonejs.github.io/docs/13.8.25/Sampler#triggerattack
   external void triggerAttack(JSAny note, [JSAny? time]);
 
   external void triggerRelease([JSAny? time]);

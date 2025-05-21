@@ -11,8 +11,10 @@ void mainToneMenu() {
     item('Quick sampler', () async {
       var ctx = await initToneContext(debug: true);
       write('version: ${ctx.version}');
-      var sampler = (await ctx.createSampler({'C4': 'audio/C4[.mp3|.ogg]'}))
-          .toDestination();
+      var sampler =
+          (await ctx.createSampler({
+            'C4': 'audio/C4[.mp3|.ogg]',
+          })).toDestination();
 
       sampler.triggerAttack('C4');
       sampler.triggerAttack('Bb3', delay: 1.0);
@@ -42,8 +44,9 @@ void mainToneMenu() {
 
       enter(() async {
         sampler =
-            (await toneContext.createSampler({'C4': 'audio/C4[.mp3|.ogg]'}))
-                .toDestination();
+            (await toneContext.createSampler({
+              'C4': 'audio/C4[.mp3|.ogg]',
+            })).toDestination();
       });
       item('triggerAttack', () async {
         // play a middle c without duration (taken from the sample)
