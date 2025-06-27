@@ -49,14 +49,12 @@ class ToneContext {
   }) async {
     var completer = Completer<void>();
     var jsObject = JSObject();
-    var onLoad =
-        ([JSAny? _]) {
-          completer.complete();
-        }.toJS;
-    var options =
-        (baseUrl != null)
-            ? tonejs.SamplerOptionsJs(onload: onLoad, baseUrl: baseUrl)
-            : tonejs.SamplerOptionsJs(onload: onLoad);
+    var onLoad = ([JSAny? _]) {
+      completer.complete();
+    }.toJS;
+    var options = (baseUrl != null)
+        ? tonejs.SamplerOptionsJs(onload: onLoad, baseUrl: baseUrl)
+        : tonejs.SamplerOptionsJs(onload: onLoad);
     samples.forEach((key, value) {
       jsObject.setProperty(key.toJS, value.toJS);
     });
@@ -113,11 +111,10 @@ Future<ToneContext> initToneContext({String? path, bool? debug}) async {
         } else if (globalRequireJsOrNull != null) {
           Future useRequire() async {
             var completer = Completer<void>();
-            var onLoad =
-                (tonejs.ToneJs toneJs) {
-                  _toneContext = ToneContext._(toneJs);
-                  completer.complete();
-                }.toJS;
+            var onLoad = (tonejs.ToneJs toneJs) {
+              _toneContext = ToneContext._(toneJs);
+              completer.complete();
+            }.toJS;
             requireJs([path!].map((e) => e.toJS).toList().toJS, onLoad);
             //_toneContext = ToneContext._(native, globalToneJsOrNull!);
             //completer.complete();
