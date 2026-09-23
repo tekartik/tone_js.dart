@@ -1,9 +1,10 @@
+import 'api/tone_api.dart';
 import 'instrument.dart';
 import 'js_interop.dart' as tonejs;
 import 'monophonic.dart';
 import 'tone.dart';
 
-class Synth extends Monophonic {
+class Synth extends Monophonic implements ToneSynthApi {
   Synth.fromNativeInstance(super.instrumentJs) : super.fromNativeInstance();
 
   Synth() : super.fromNativeInstance(toneContext.toneJs.newSynth());
@@ -13,6 +14,7 @@ class Synth extends Monophonic {
     return toDestination();
   }
 
+  @override
   Synth toDestination() {
     return Synth.fromNativeInstance(synthJs.toDestination());
   }

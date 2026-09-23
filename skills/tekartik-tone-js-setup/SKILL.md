@@ -8,7 +8,8 @@ description: >-
   toDestination (toMaster), ToneAudioContext, ToneGainNode, the
   tone_js_loader.dart helpers loadToneJs and toneJsPath, the bundled
   packages/tekartik_tone_js/js/Tone.js asset, and the web-only / user-gesture
-  constraints.
+  constraints. For the pure Dart implementation (tone_web.dart, no Tone.js)
+  and switching implementation see tekartik-tone-js-web.
 ---
 
 # Tone.js wrapper (tekartik_tone_js)
@@ -16,6 +17,8 @@ description: >-
 `tekartik_tone_js` is a thin Dart wrapper over [Tone.js](https://tonejs.github.io):
 it loads the bundled `Tone.js` (14.7.77, in `lib/js/`), exposes a `ToneContext`
 and wraps the parts needed to play notes — `Synth` and `Sampler`. Web only.
+The same package also has a pure Dart port with the same API
+(`tone_web.dart`), see [tekartik-tone-js-web](../tekartik-tone-js-web/SKILL.md).
 
 ## Guidelines
 
@@ -26,20 +29,22 @@ and wraps the parts needed to play notes — `Synth` and `Sampler`. Web only.
     tekartik_tone_js:
       git:
         url: https://github.com/tekartik/tone_js.dart
-      version: '>=0.1.1'
+      version: '>=0.7.0'
   ```
   A page that manipulates the DOM also needs `web:` in its own dependencies.
 * Imports: `package:tekartik_tone_js/tone.dart` is the API
   (`initToneContext`, `toneContext`, `ToneContext`, `Synth`, `Monophonic`,
   `MonophonicExt`, `Sampler`, `SampleExt`, `Tone`, `ToneAudioContext`,
-  `ToneGainNode`); `package:tekartik_tone_js/tone_js_loader.dart` adds
+  `ToneGainNode`, plus the common API `ToneContextApi`, `ToneSynthApi`,
+  `ToneSamplerApi`, `ToneFactory` and `toneFactoryJs`);
+  `package:tekartik_tone_js/tone_js_loader.dart` adds
   `loadToneJs({path, debug})` and `toneJsPath({path, debug})` when the script
   must be injected without creating the context. `tone_js.dart` is deprecated
   and empty, `tone_available.dart` is empty: do not import them.
-* Web only (`dart:js_interop`). Keep the import out of shared/VM libraries;
-  use a conditional import or guard with `kDartIsWeb` from
-  `package:tekartik_common_utils/env_utils.dart`. (`isToneJsSupported` exists
-  but only in `lib/src/export.dart`, an implementation import.)
+* `tone.dart` is web only (`dart:js_interop`). Keep it out of shared/VM
+  libraries; from shared code import `package:tekartik_tone_js/tone_api.dart`
+  instead (safe on any platform) and use `toneFactoryJs.isSupported` /
+  `await toneFactoryJs.initContext()`.
 * Always `await initToneContext()` before creating any instrument, including
   when the page already has a `<script src="packages/tekartik_tone_js/js/Tone.js">`
   tag: `Synth()` and `toneContext` read the context that `initToneContext`
@@ -53,7 +58,8 @@ and wraps the parts needed to play notes — `Synth` and `Sampler`. Web only.
   Flutter web app does not serve `packages/...` that way: copy `Tone.js` into
   `web/` and pass `path: 'Tone.js'`. `debug: true` currently resolves to the
   same file.
-* `ToneContext`: `version` (`'14.7.77'` for the bundled file), `newSynth()`,
+* `ToneContext` (implements `ToneContextApi`): `version` (`'14.7.77'` for
+  the bundled file), `newSynth()`,
   `createSampler(Map<String, String> samples, {String? baseUrl})` (awaits
   Tone's `onload`, so the returned `Sampler` is ready to play), and
   `context` (a `ToneAudioContext`, with `createGain()` returning a
@@ -63,9 +69,10 @@ and wraps the parts needed to play notes — `Synth` and `Sampler`. Web only.
   `(await toneContext.createSampler(...)).toDestination()`. `toMaster()` is
   the old alias of `toDestination()`. Both return a new wrapper, so keep the
   returned object, not the one you created.
-* Playing (extension methods, so `tone.dart` must be imported where they are
-  used): `triggerAttack(note, {delay})`, `triggerRelease({delay})` (`Synth` /
-  `Monophonic` only) and `triggerAttackRelease(note, duration, {delay})`.
+* Playing (class members; `MonophonicExt` / `SampleExt` are kept for
+  compatibility): `triggerAttack(note, {delay})`,
+  `triggerAttackRelease(note, duration, {delay})`, `triggerRelease({delay})`
+  on `Synth` / `Monophonic` and `triggerRelease(note, {delay})` on `Sampler`.
   `note` is a note name (`'C4'`, `'Bb3'`, `'C#3'`).
 * `duration` and `delay` are `Object`: a `num` (seconds) or a `String` (Tone
   notation, `'8n'`, `'1'`), anything else throws `ArgumentError`. `delay` is

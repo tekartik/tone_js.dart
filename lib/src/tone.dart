@@ -30,19 +30,22 @@ class ToneAudioContext {
   ToneGainNode createGain() => ToneGainNode(_audioContextJs.createGain());
 }
 
-class ToneContext {
+class ToneContext implements ToneContextApi {
   final tonejs.ToneJs _toneJs;
 
   ToneContext._(this._toneJs);
 
+  @override
   String get version => _toneJs.version;
 
   ToneAudioContext get context => ToneAudioContext(_toneJs.context);
 
+  @override
   Synth newSynth() {
     return Synth.fromNativeInstance(_toneJs.newSynth());
   }
 
+  @override
   Future<Sampler> createSampler(
     Map<String, String> samples, {
     String? baseUrl,
@@ -109,7 +112,7 @@ Future<ToneContext> initToneContext({String? path, bool? debug}) async {
           // devPrint('Global tone object');
           useGlobal();
         } else if (globalRequireJsOrNull != null) {
-          Future useRequire() async {
+          Future<void> useRequire() async {
             var completer = Completer<void>();
             var onLoad = (tonejs.ToneJs toneJs) {
               _toneContext = ToneContext._(toneJs);

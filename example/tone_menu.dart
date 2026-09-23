@@ -1,16 +1,35 @@
 import 'package:tekartik_test_menu_browser/test_menu_web.dart';
-import 'package:tekartik_tone_js/tone.dart';
+import 'package:tekartik_tone_js/tone_api.dart';
+
+import 'tone_impl.dart';
+
+/// Implementation used by the menus, `?impl=web` in the url to start with
+/// tone_web.
+var toneFactory = toneFactoryFromUri();
 
 void mainToneMenu() {
+  menu('implementation', () {
+    item('show', () {
+      write('implementation: $toneFactory');
+    });
+    item('use tone_js (Tone.js)', () {
+      toneFactory = toneFactoryJs;
+      write('implementation: $toneFactory');
+    });
+    item('use tone_web (pure Dart)', () {
+      toneFactory = toneFactoryWeb;
+      write('implementation: $toneFactory');
+    });
+  });
   menu('tone', () {
-    item('initToneContext', () async {
-      var ctx = await initToneContext();
-      write('version: ${ctx.version}');
+    item('initContext', () async {
+      var ctx = await toneFactory.initContext();
+      write('$toneFactory version: ${ctx.version}');
     });
 
     item('Quick sampler', () async {
-      var ctx = await initToneContext(debug: true);
-      write('version: ${ctx.version}');
+      var ctx = await toneFactory.initContext();
+      write('$toneFactory version: ${ctx.version}');
       var sampler = (await ctx.createSampler({
         'C4': 'audio/C4[.mp3|.ogg]',
       })).toDestination();
@@ -22,24 +41,34 @@ void mainToneMenu() {
     });
 
     item('Quick synth', () async {
-      var ctx = await initToneContext();
-      //write('version: ${ctx.version}');
+      var ctx = await toneFactory.initContext();
       var synth = ctx.newSynth().toDestination();
       synth.triggerAttack('C4');
       synth.triggerAttackRelease('D3', .5, delay: .5);
-      // play a middle c for the duration of an 8th note
-      // synth.triggerAttack('C4');
       await sleep(100);
       synth.triggerAttackRelease('E4', .5, delay: .5);
     });
+
+    item('Chord (web player)', () async {
+      var ctx = await toneFactory.initContext();
+      var sampler = (await ctx.createSampler({
+        'C4': 'audio/C4[.mp3|.ogg]',
+      })).toDestination();
+      var time = 0.0;
+      for (var note in ['E3', 'A3', 'D4', 'G4', 'B4', 'E5']) {
+        sampler.triggerAttackRelease(note, 1.0, delay: time);
+        time += 0.1;
+      }
+    });
   });
   menu('Initialized', () {
-    late ToneContext toneContext;
+    late ToneContextApi toneContext;
     enter(() async {
-      toneContext = await initToneContext();
+      toneContext = await toneFactory.initContext();
+      write('implementation: $toneFactory');
     });
     menu('Sampler', () {
-      late Sampler sampler;
+      late ToneSamplerApi sampler;
 
       enter(() async {
         sampler = (await toneContext.createSampler({
@@ -50,26 +79,27 @@ void mainToneMenu() {
         // play a middle c without duration (taken from the sample)
         sampler.triggerAttack('C4');
       });
+      item('triggerRelease', () async {
+        sampler.triggerRelease('C4');
+      });
       item('triggerAttackRelease', () async {
         // play a middle c for the duration of an 8th note
         sampler.triggerAttackRelease('C4', '8n');
       });
 
       item('triggerAttackRelease delay', () async {
-        // play a middle c for the duration of an 8th note
         sampler.triggerAttackRelease('D3', .5, delay: 3.0);
       });
       item('triggerAttack delay', () async {
-        // play a middle c for the duration of an 8th note
         sampler.triggerAttack('Bb3', delay: 1.0);
       });
     });
     menu('Synth', () {
-      late Synth synth;
+      late ToneSynthApi synth;
 
       enter(() {
-        // create one of Tone's built-in synthesizers and connect it to the master output
-        synth = Synth().toDestination();
+        // create a synthesizer and connect it to the output
+        synth = toneContext.newSynth().toDestination();
       });
       item('triggerAttackRelease', () async {
         // play a middle c for the duration of an 8th note
@@ -77,11 +107,9 @@ void mainToneMenu() {
       });
 
       item('triggerAttackRelease delay', () async {
-        // play a middle c for the duration of an 8th note
         synth.triggerAttackRelease('D3', .5, delay: 3.0);
       });
       item('triggerAttack delay', () async {
-        // play a middle c for the duration of an 8th note
         synth.triggerAttack('Bb3', delay: 1.0);
       });
       item('triggerAttack', () async {
@@ -89,7 +117,6 @@ void mainToneMenu() {
         synth.triggerAttack('C4');
       });
       item('triggerRelease', () async {
-        // play a middle c
         synth.triggerRelease();
       });
     });

@@ -8,7 +8,7 @@ import 'package:tekartik_tone_js/tone_js_loader.dart';
 
 // export 'package:test/test.dart';
 
-Future toneJsSetup() async {
+Future<void> toneJsSetup() async {
   await loadToneJs();
 }
 

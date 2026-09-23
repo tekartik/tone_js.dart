@@ -1,5 +1,5 @@
 import 'package:dev_build/package.dart';
 
-Future main() async {
+Future<void> main() async {
   await packageRunCi('.');
 }

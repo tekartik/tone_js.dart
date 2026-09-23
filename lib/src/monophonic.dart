@@ -5,7 +5,25 @@ import 'js_interop.dart' as tonejs;
 import 'tone.dart';
 import 'tone_utils_js.dart';
 
+/// Kept for compatibility, the methods are now [Monophonic] members.
 extension MonophonicExt on Monophonic {
+  /// See [Monophonic.triggerAttack].
+  void triggerAttack(String note, {Object? delay}) =>
+      this.triggerAttack(note, delay: delay);
+
+  /// See [Monophonic.triggerRelease].
+  void triggerRelease({Object? delay}) => this.triggerRelease(delay: delay);
+
+  /// See [Monophonic.triggerAttackRelease].
+  void triggerAttackRelease(String note, Object duration, {Object? delay}) =>
+      this.triggerAttackRelease(note, duration, delay: delay);
+}
+
+class Monophonic extends Instrument {
+  Monophonic.fromNativeInstance(tonejs.SynthJs super.instrumentJs);
+
+  Monophonic() : super(toneContext.toneJs.newSynth());
+
   void triggerAttack(String note, {Object? delay}) {
     JSAny? timeJs;
     if (delay != null) {
@@ -50,12 +68,6 @@ extension MonophonicExt on Monophonic {
       );
     }
   }
-}
-
-class Monophonic extends Instrument {
-  Monophonic.fromNativeInstance(tonejs.SynthJs super.instrumentJs);
-
-  Monophonic() : super(toneContext.toneJs.newSynth());
 }
 
 extension MonophonicPrvExt on Monophonic {

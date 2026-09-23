@@ -13,7 +13,7 @@ String toneJsPath({String? path, bool? debug}) {
 }
 
 // Perform no check
-Future loadToneJs({String? path, bool? debug}) async {
+Future<void> loadToneJs({String? path, bool? debug}) async {
   path = toneJsPath(path: path, debug: debug);
   // load js
   await loadJavascriptScript(path);

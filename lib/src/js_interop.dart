@@ -66,6 +66,8 @@ extension SamplerJsExt on SamplerJs {
 
   // https://tonejs.github.io/docs/13.8.25/Sampler#triggerattack
   external void triggerAttack(JSAny note, [JSAny? time]);
+
+  external void triggerRelease(JSAny note, [JSAny? time]);
 }
 
 @JS('require')
