@@ -36,3 +36,4 @@ tmp/
 # using node to install Tone.js - npm install node
 package-lock.json
 node_modules/
+/pubspec_overrides.yaml
