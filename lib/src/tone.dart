@@ -53,11 +53,24 @@ class ToneContext implements ToneContextApi {
     var completer = Completer<void>();
     var jsObject = JSObject();
     var onLoad = ([JSAny? _]) {
-      completer.complete();
+      if (!completer.isCompleted) {
+        completer.complete();
+      }
+    }.toJS;
+    // Tone.js calls onload only when every sample is loaded, a load failure
+    // only reaches onerror (StateError as in tone_web).
+    var onError = ([JSAny? error]) {
+      if (!completer.isCompleted) {
+        completer.completeError(StateError('could not load sample: $error'));
+      }
     }.toJS;
     var options = (baseUrl != null)
-        ? tonejs.SamplerOptionsJs(onload: onLoad, baseUrl: baseUrl)
-        : tonejs.SamplerOptionsJs(onload: onLoad);
+        ? tonejs.SamplerOptionsJs(
+            onload: onLoad,
+            onerror: onError,
+            baseUrl: baseUrl,
+          )
+        : tonejs.SamplerOptionsJs(onload: onLoad, onerror: onError);
     samples.forEach((key, value) {
       jsObject.setProperty(key.toJS, value.toJS);
     });

@@ -1,5 +1,7 @@
 import 'dart:js_interop';
 
+import 'tone_delay.dart';
+
 JSAny durationToJs(Object duration) {
   if (duration is num) {
     return duration.toJS;
@@ -9,11 +11,4 @@ JSAny durationToJs(Object duration) {
   throw ArgumentError('Invalid duration type: ${duration.runtimeType}');
 }
 
-JSAny delayToJs(Object delay) {
-  if (delay is num) {
-    return '+$delay'.toJS;
-  } else if (delay is String) {
-    return '+$delay'.toJS;
-  }
-  throw ArgumentError('Invalid delay type: ${delay.runtimeType}');
-}
+JSAny delayToJs(Object delay) => toneJsDelayExpression(delay).toJS;

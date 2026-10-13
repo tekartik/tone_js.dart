@@ -23,7 +23,3 @@ class Synth extends Monophonic implements ToneSynthApi {
 extension SynthPrvExt on Synth {
   tonejs.SynthJs get synthJs => instrumentJs as tonejs.SynthJs;
 }
-
-extension MonophonicPrvExt on Monophonic {
-  tonejs.MonophonicJs get monophonicJs => instrumentJs as tonejs.SynthJs;
-}

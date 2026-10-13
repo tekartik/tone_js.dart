@@ -32,9 +32,15 @@ extension type MonophonicJs._(JSObject _) implements InstrumentJs {}
 extension type SamplerJs._(JSObject _) implements InstrumentJs {}
 
 extension type SamplerOptionsJs._(JSObject _) implements JSObject {
-  external SamplerOptionsJs({required JSFunction onload, String? baseUrl});
+  external SamplerOptionsJs({
+    required JSFunction onload,
+    JSFunction? onerror,
+    String? baseUrl,
+  });
 
   external JSFunction get onload;
+
+  external JSFunction? get onerror;
 
   external String? get baseUrl;
 }

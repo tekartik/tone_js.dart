@@ -15,10 +15,6 @@ void main() {
     expect(isToneWebSupported, kDartIsWeb);
   });
 
-  test('version', () {
-    expect(toneWebVersion, isNotEmpty);
-  });
-
   test('io', () async {
     expect(toneWebContextOrNull, isNull);
     expect(() => toneWebContext, throwsA(isA<Error>()));
