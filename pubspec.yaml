@@ -1,6 +1,6 @@
 name: tekartik_tone_js
 version: 0.7.0
-description: tone js wrapper
+description: Play notes and samples in a Dart web app, through Tone.js or a pure Dart Web Audio port of Tone.js Synth and Sampler.
 publish_to: none
 environment:
   sdk: ^3.12.0
